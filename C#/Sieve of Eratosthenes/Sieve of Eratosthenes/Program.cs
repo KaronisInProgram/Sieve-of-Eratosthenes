@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.ObjectModel;
+using System.Collections.Generic;
 
 namespace SieveOfEratosthenes
 {
@@ -9,20 +9,19 @@ namespace SieveOfEratosthenes
 
         public static void Main()
         {
+            List<int> startNumbers = new List<int>()
+            {
+                2, 5, 10, 247, 500, 1029
+            };
+
             var sieve = new Sieve();
 
-            ReadOnlyCollection<int> result;
-
-            result = sieve.SetMaxnumber(2).Calculate();
-            Console.WriteLine(string.Join(", ", result));
-            result = sieve.SetMaxnumber(9).Calculate();
-            Console.WriteLine(string.Join(", ", result));
-            result = sieve.SetMaxnumber(10).Calculate();
-            Console.WriteLine(string.Join(", ", result));
-            result = sieve.SetMaxnumber(100).Calculate();
-            Console.WriteLine(string.Join(", ", result));
-
-            Console.ReadKey();
+            foreach (var start in startNumbers)
+            {
+                Console.WriteLine($"Begin of Output (Max Number { start })");
+                Console.WriteLine(string.Join(", ", sieve.SetMaxnumber(start).Calculate()));
+                Console.WriteLine($"End of Output{ Environment.NewLine}");
+            }
         }
 
         #endregion Private Methods

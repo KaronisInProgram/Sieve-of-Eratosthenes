@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace SieveOfEratosthenes
@@ -9,31 +8,37 @@ namespace SieveOfEratosthenes
     {
         #region Private Fields
 
-        private readonly int startNumber = 2;
-        private int maxNumber = 2;
+        private const int smallestPrimeNumber = 2;
+        private int maxNumber = smallestPrimeNumber;
 
         #endregion Private Fields
 
         #region Public Methods
 
-        public ReadOnlyCollection<int> Calculate()
+        public List<int> Calculate()
         {
-            IList<int> result = new List<int>();
+            List<int> result = new List<int>();
+
+            if (maxNumber < smallestPrimeNumber)
+            {
+                return result;
+            }
 
             // Fill List till max Number
-            for (int i = startNumber; i <= maxNumber; i++)
+            for (int i = smallestPrimeNumber; i <= maxNumber; i++)
             {
                 result.Add(i);
             }
 
-            var squarRoot = Convert.ToInt32(Math.Sqrt(maxNumber));
+            // Calculate Root so we can remove all Non-Primes in the List
+            var squarRoot = (int)Math.Round(Math.Sqrt(maxNumber), 0, MidpointRounding.ToPositiveInfinity);
 
-            for (int i = startNumber; i < squarRoot; i++)
+            for (int i = smallestPrimeNumber; i <= squarRoot; i++)
             {
-                result = result.Where((number) => (number % i) != 0).ToList();
+                result = result.Where((number) => number == i || (number % i) != 0).ToList();
             }
 
-            return new ReadOnlyCollection<int>(result);
+            return result;
         }
 
         public Sieve SetMaxnumber(int maxNumber)

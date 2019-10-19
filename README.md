@@ -1,2 +1,2 @@
 # Sieve-of-Eratosthenes
-Just a bit Hobby-Math
+Just a bit of Hobby-Math
